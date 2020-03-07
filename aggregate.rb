@@ -4,12 +4,11 @@ point_list = []
 comment_list = []
 
 def fetch_json(page)
-  result = <<`EOS`
-    curl --anyauth --user #{ENV['USER']}:#{ENV['PASSWORD']} \
-       -H 'content-type: application/json' \
-       https://viewer.kintoneapp.com/public/api/records/#{ENV['SUPPORTERZ_ID']}/#{page}
-EOS
-  JSON.parse(result)
+  JSON.parse(<<`EOF`)
+    curl -s --anyauth --user #{ENV['USER']}:#{ENV['PASSWORD']} \
+         -H 'content-type: application/json' \
+         https://viewer.kintoneapp.com/public/api/records/#{ENV['SUPPORTERZ_ID']}/#{page}
+EOF
 end
 
 def max_page
